@@ -85,7 +85,7 @@ class ModeloDiagnosticoCoche:
     def obtener_presion_neumaticos(self):
         # Simula la obtención de la presión de los neumáticos
         # En una implementación real, esto podría obtenerse de sensores o de la entrada del usuario
-        presion, ok = QInputDialog.getInt(None, "Comprobación de Hipótesis", "Introduce la presión del neumático (bar):", 0, 0, 100, 1)
+        presion, ok = QInputDialog.getDouble(None, "Comprobación de Hipótesis", "Introduce la presión del neumático (bar):", 0, 0, 100, 1)
         if ok:
             return presion
         return 0
@@ -93,7 +93,7 @@ class ModeloDiagnosticoCoche:
     def obtener_carga_bateria(self):
         # Simula la obtención de la carga de la batería
         # En una implementación real, esto podría obtenerse de sensores o de la entrada del usuario
-        carga, ok = QInputDialog.getInt(None, "Comprobación de Hipótesis", "Introduce la carga de la batería (voltios):", 0, 0, 20, 1)
+        carga, ok = QInputDialog.getDouble(None, "Comprobación de Hipótesis", "Introduce la carga de la batería (voltios):", 0, 0, 20, 1)
         if ok:
             return carga
         return 0
