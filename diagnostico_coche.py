@@ -294,13 +294,25 @@ class VistaDiagnosticoCoche(QWidget):
         self.modelo = modelo
         self.setWindowTitle("Diagnóstico de Fallos de Coche")
         
+        # Crear barra de menú
+        self.menu_bar = QMenuBar(self)
+        self.menu_archivo = self.menu_bar.addMenu("Archivo")
+
+        self.accion_nuevo_diagnostico = QAction("Nuevo Diagnóstico", self)
+        self.accion_guardar_diagnostico = QAction("Guardar Diagnóstico", self)
+        self.menu_archivo.addAction(self.accion_nuevo_diagnostico)
+        self.menu_archivo.addAction(self.accion_guardar_diagnostico)
+
+        self.accion_nuevo_diagnostico.triggered.connect(self.nuevo_diagnostico)
+        self.accion_guardar_diagnostico.triggered.connect(self.guardar_diagnostico)
+        
         # Lista de síntomas seleccionables
-        self.label_sintomas_disponibles = QLabel("Fallos Posibles:")
+        self.label_sintomas_disponibles = QLabel("Síntomas Disponibles:")
         self.lista_sintomas_disponibles = QListWidget()
         self.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
         
         # Síntomas seleccionados
-        self.label_sintomas_seleccionados = QLabel("Fallos Detectados:")
+        self.label_sintomas_seleccionados = QLabel("Síntomas Seleccionados:")
         self.lista_sintomas_seleccionados = QListWidget()
         
         # Botones para añadir y quitar síntomas
@@ -342,6 +354,7 @@ class VistaDiagnosticoCoche(QWidget):
         self.layout_sintomas_total.addLayout(self.layout_sintomas_seleccionados)
         
         self.layout_principal = QVBoxLayout()
+        self.layout_principal.addWidget(self.menu_bar)
         self.layout_principal.addLayout(self.layout_sintomas_total)
         self.layout_principal.addWidget(self.boton_diagnostico)
         self.layout_principal.addWidget(self.boton_comprobar_hipotesis)
@@ -363,7 +376,7 @@ class VistaDiagnosticoCoche(QWidget):
     
     def realizar_diagnostico(self):
         if self.lista_sintomas_seleccionados.count() == 0:
-            self.texto_diagnostico.setPlainText("No se ha seleccionado ningún fallo.")
+            self.texto_diagnostico.setPlainText("No se ha seleccionado ningún síntoma.")
             self.boton_comprobar_hipotesis.setEnabled(False)
             return
         
@@ -390,6 +403,30 @@ class VistaDiagnosticoCoche(QWidget):
                 QMessageBox.information(self, "Comprobación de Hipótesis", descripcion)
             else:
                 QMessageBox.information(self, "Comprobación de Hipótesis", descripcion)
+
+    def nuevo_diagnostico(self):
+        # Limpiar las listas de síntomas seleccionados y el diagnóstico
+        self.lista_sintomas_disponibles.clear()
+        self.lista_sintomas_seleccionados.clear()
+        self.texto_diagnostico.clear()
+        self.boton_comprobar_hipotesis.setEnabled(False)
+        # Re-poblar la lista de síntomas disponibles
+        self.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
+
+    def guardar_diagnostico(self):
+        if self.lista_sintomas_seleccionados.count() == 0 or not self.texto_diagnostico.toPlainText():
+            QMessageBox.warning(self, "Guardar Diagnóstico", "No hay diagnóstico para guardar.")
+            return
+        
+        opciones = QFileDialog.Options()
+        archivo, _ = QFileDialog.getSaveFileName(self, "Guardar Diagnóstico", "", "Archivos de Texto (*.txt)", options=opciones)
+        if archivo:
+            with open(archivo, 'w') as file:
+                file.write("FALLOS DETECTADOS:\n")
+                for i in range(self.lista_sintomas_seleccionados.count()):
+                    file.write(f"- {self.lista_sintomas_seleccionados.item(i).text()}\n")
+                file.write("\nDESCRIPCIÓN DEL DIAGNÓSTICO:\n")
+                file.write(self.texto_diagnostico.toPlainText())
 
 # Vista principal de la aplicación
 class AplicacionDiagnosticoCoche(QApplication):
