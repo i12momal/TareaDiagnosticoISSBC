@@ -7,7 +7,7 @@ Created on Tue Jun  4 20:26:50 2024
 """
 
 import sys
-from PyQt5.QtWidgets import QApplication, QFileDialog, QMenuBar, QAction, QWidget, QVBoxLayout, QLabel, QPushButton, QListWidget, QGridLayout, QTextEdit, QMessageBox, QSizePolicy, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QFileDialog, QMenuBar, QAction, QWidget, QVBoxLayout, QLabel, QPushButton, QListWidget, QGridLayout, QTextEdit, QMessageBox, QSizePolicy, QHBoxLayout, QInputDialog
 from PyQt5.QtCore import Qt
 
 # Modelo de diagnóstico de fallos de coche
@@ -15,10 +15,21 @@ class ModeloDiagnosticoCoche:
     def __init__(self):
         # Simulando una lista de fallos con síntomas asociados
         self.fallos = {
-            'Batería descargada': ['El coche no arranca', 'Luces tenues', 'Ruidos de clic'],
-            'Alternador defectuoso': ['Luces parpadeantes', 'Batería baja', 'El coche se apaga'],
-            'Filtro de aire sucio': ['Pérdida de potencia', 'Humo negro', 'Consumo elevado de combustible'],
-            'Bujías desgastadas': ['Dificultad para arrancar', 'Fallo del motor', 'Pérdida de potencia']
+            'Batería': ['El coche no arranca'],
+            'Bujía': ['El coche no arranca', 'Pérdida de potencia'],
+            'Motor': ['Sobrecalentamiento de motor', 'Pérdida de potencia', 'Ruidos extraños', 'Emisiones de humo extrañas', 'Consumo elevado de combustible'],
+            'Radiador': ['Sobrecalentamiento de motor'],
+            'Chasis': ['Vibraciones anormales', 'Ruidos extraños', 'Problemas de dirección'],
+            'Filtro de aceite': ['Sobrecalentamiento de motor'],
+            'Disco de Frenos': ['Pérdida de frenado', 'Ruidos extraños'],
+            'Sistema de Inyección': ['El coche no arranca', 'Pérdida de potencia', 'Consumo elevado de combustible'],
+            'Suspensión': ['Vibraciones anormales', 'Problemas de dirección'],
+            'Neumáticos': ['Vibraciones anormales', 'Pérdida de frenado', 'Problemas de dirección'],
+            'Pastilla de Frenos': ['Pérdida de frenado', 'Ruidos extraños'],
+            'Filtro de Aire': ['Pérdida de potencia', 'Emisiones de humo extrañas'],
+            'Sistema de Refrigeración': ['Sobrecalentamiento de motor', 'Pérdida de potencia'],
+            'Sistema de Escape': ['Pérdida de potencia', 'Ruidos extraños', 'Emisiones de humo extrañas'],
+            'Sistema de Transmisión': ['Pérdida de potencia', 'Vibraciones anormales', 'Pérdida de frenado', 'Problemas de dirección']
         }
 
     def obtener_sintomas(self):
@@ -36,12 +47,56 @@ class ModeloDiagnosticoCoche:
     def obtener_descripcion(self, fallo):
         # Devuelve una descripción detallada del fallo
         descripcion = {
-            'Batería descargada': 'Una batería descargada puede ser causada por un alternador defectuoso o por dejar las luces encendidas durante mucho tiempo.',
-            'Alternador defectuoso': 'Un alternador defectuoso puede hacer que las luces parpadeen, la batería se descargue y, en casos extremos, el coche se apague mientras conduce.',
-            'Filtro de aire sucio': 'Un filtro de aire sucio puede causar una pérdida de potencia en el motor, humo negro en el escape y un aumento en el consumo de combustible.',
-            'Bujías desgastadas': 'Las bujías desgastadas pueden causar dificultad para arrancar el motor, fallos en el funcionamiento del motor y una pérdida de potencia mientras se conduce.'
+            'Batería': 'La batería suministra la energía eléctrica necesaria para arrancar el coche y alimentar los sistemas eléctricos cuando el motor está apagado y, si falla, el coche no arranca.',
+            'Bujía': 'Las bujías generan la chispa que enciende la mezcla de aire y combustible en el motor; su mal funcionamiento puede causar que el coche no arranque y una pérdida notable de potencia.',
+            'Motor': 'El motor es la fuente de energía del vehículo, convirtiendo el combustible en movimiento; problemas en este componente pueden causar sobrecalentamiento, pérdida de potencia, ruidos inusuales, emisiones de humo anómalas y un consumo excesivo de combustible.',
+            'Radiador': 'El radiador es clave en el sistema de enfriamiento del motor, ayudando a disipar el calor; si falla, el motor puede sobrecalentarse rápidamente.',
+            'Chasis': 'El chasis es la estructura base del vehículo que soporta y une todos los componentes; daños en él pueden causar vibraciones anormales, ruidos extraños y problemas de dirección.',
+            'Filtro de Aceite': 'El filtro de aceite mantiene el aceite del motor limpio al eliminar impurezas; si está obstruido, puede causar sobrecalentamiento del motor debido a la falta de lubricación adecuada.',
+            'Disco de Frenos': 'Los discos de freno, junto con las pastillas, generan la fricción necesaria para detener el vehículo; su desgaste o daño puede provocar una pérdida de eficacia en el frenado y generar ruidos molestos.',
+            'Sistema de Inyección': 'El sistema de inyección administra la cantidad exacta de combustible al motor; su mal funcionamiento puede impedir que el coche arranque, reducir la potencia y aumentar el consumo de combustible.',
+            'Suspensión': 'La suspensión conecta el vehículo con sus ruedas y absorbe las irregularidades del terreno, proporcionando una conducción suave; fallas en este sistema pueden resultar en vibraciones anormales y problemas de dirección.',
+            'Neumáticos': 'Los neumáticos, el único contacto del vehículo con la carretera, proporcionan tracción y estabilidad; su desgaste o daño puede ocasionar vibraciones, pérdida de capacidad de frenado y problemas en la dirección.',
+            'Pastilla de Frenos': 'Las pastillas de freno presionan contra los discos para detener el vehículo; el desgaste excesivo de estas puede llevar a una pérdida de eficacia en el frenado y causar ruidos al frenar.',
+            'Filtro de Aire': 'El filtro de aire impide la entrada de partículas y polvo al motor, manteniéndolo limpio; si está sucio, puede reducir la potencia del motor y provocar emisiones de humo anómalas.',
+            'Sistema de Refrigeración': 'El sistema de refrigeración mantiene la temperatura del motor en un rango óptimo para evitar sobrecalentamientos; un fallo en este sistema puede resultar en sobrecalentamiento y pérdida de potencia del motor.',
+            'Sistema de Escape': 'El sistema de escape expulsa los gases residuales del motor, reduciendo el ruido y las emisiones contaminantes; fallos en este sistema pueden causar pérdida de potencia, ruidos inusuales y emisiones de humo anormales.',
+            'Sistema de Transmisión': 'El sistema de transmisión transfiere la potencia del motor a las ruedas, permitiendo el movimiento del vehículo; problemas en este sistema pueden causar pérdida de potencia, vibraciones anormales, pérdida de eficacia en el frenado y problemas de dirección.'
         }
         return descripcion.get(fallo, 'Descripción no disponible')
+
+    def comprobar_hipotesis(self, fallo):
+        # Comprobaciones de hipótesis para cada componente
+        if fallo == 'Neumáticos':
+            presion = self.obtener_presion_neumaticos()
+            if presion < 2.2:  # Umbral hipotético para la presión de los neumáticos en psi
+                return True, "La presión del neumático es baja, indicando un posible fallo."
+            else:
+                return False, "La presión del neumático es adecuada."
+        elif fallo == 'Batería':
+            carga = self.obtener_carga_bateria()
+            if carga < 12:  # Umbral hipotético para la carga de la batería en voltios
+                return True, "La batería está descargada, indicando un posible fallo."
+            else:
+                return False, "La batería tiene carga suficiente."
+        # Se pueden agregar más comprobaciones para otros fallos
+        return False, "No hay información disponible para la comprobación de este fallo."
+
+    def obtener_presion_neumaticos(self):
+        # Simula la obtención de la presión de los neumáticos
+        # En una implementación real, esto podría obtenerse de sensores o de la entrada del usuario
+        presion, ok = QInputDialog.getInt(None, "Comprobación de Hipótesis", "Introduce la presión del neumático (bar):", 0, 0, 100, 1)
+        if ok:
+            return presion
+        return 0
+
+    def obtener_carga_bateria(self):
+        # Simula la obtención de la carga de la batería
+        # En una implementación real, esto podría obtenerse de sensores o de la entrada del usuario
+        carga, ok = QInputDialog.getInt(None, "Comprobación de Hipótesis", "Introduce la carga de la batería (voltios):", 0, 0, 20, 1)
+        if ok:
+            return carga
+        return 0
 
 # Vista de diagnóstico de fallos de coche
 class VistaDiagnosticoCoche(QWidget):
@@ -59,179 +114,102 @@ class VistaDiagnosticoCoche(QWidget):
         self.label_sintomas_seleccionados = QLabel("Fallos Detectados:")
         self.lista_sintomas_seleccionados = QListWidget()
         
-        # Botón para mover síntomas
-        self.btn_agregar_sintoma = QPushButton("Agregar Fallo Detectado")
-        self.btn_agregar_sintoma.setFixedSize(200, 50)
-        self.btn_quitar_sintoma = QPushButton("Quitar Fallo Detectado")
-        self.btn_quitar_sintoma.setFixedSize(200, 50)
-        self.btn_agregar_sintoma.clicked.connect(self.agregar_sintoma)
-        self.btn_quitar_sintoma.clicked.connect(self.quitar_sintoma)
+        # Botones para añadir y quitar síntomas
+        self.boton_anadir_sintoma = QPushButton("->")
+        self.boton_quitar_sintoma = QPushButton("<-")
         
-        # Botón para diagnosticar
-        self.btn_diagnosticar = QPushButton("Diagnosticar")
-        self.btn_diagnosticar.clicked.connect(self.realizar_diagnostico)
+        self.boton_anadir_sintoma.clicked.connect(self.anadir_sintoma)
+        self.boton_quitar_sintoma.clicked.connect(self.quitar_sintoma)
         
-        # Cuadrículas para organizar los widgets
-        layout = QGridLayout()
-        layout.addWidget(self.label_sintomas_disponibles, 0, 0)
-        layout.addWidget(self.lista_sintomas_disponibles, 1, 0)
-        layout.addWidget(self.label_sintomas_seleccionados, 0, 1)
-        layout.addWidget(self.lista_sintomas_seleccionados, 1, 1)
+        # Botón de diagnóstico
+        self.boton_diagnostico = QPushButton("Realizar Diagnóstico")
+        self.boton_diagnostico.clicked.connect(self.realizar_diagnostico)
         
-        # Botones para agregar y quitar fallos
-        button_layout = QHBoxLayout()
-        button_layout.addWidget(self.btn_agregar_sintoma, alignment=Qt.AlignCenter)  # Alinea el botón al centro
-        button_layout.addWidget(self.btn_quitar_sintoma, alignment=Qt.AlignCenter)  # Alinea el botón al centro
-        layout.addLayout(button_layout, 2, 0, 1, 2)  # Agrega el layout de los botones en la fila 2 y que ocupe las 2 columnas
+        # Botón para comprobar hipótesis
+        self.boton_comprobar_hipotesis = QPushButton("Comprobar hipótesis sobre componente")
+        self.boton_comprobar_hipotesis.clicked.connect(self.comprobar_hipotesis)
+        self.boton_comprobar_hipotesis.setEnabled(False)
         
-        layout.addWidget(self.btn_diagnosticar, 3, 0, 1, 2)
+        # Text area para mostrar el diagnóstico
+        self.texto_diagnostico = QTextEdit()
+        self.texto_diagnostico.setReadOnly(True)
+        
+        # Layouts
+        self.layout_sintomas = QVBoxLayout()
+        self.layout_sintomas.addWidget(self.label_sintomas_disponibles)
+        self.layout_sintomas.addWidget(self.lista_sintomas_disponibles)
+        
+        self.layout_sintomas_seleccionados = QVBoxLayout()
+        self.layout_sintomas_seleccionados.addWidget(self.label_sintomas_seleccionados)
+        self.layout_sintomas_seleccionados.addWidget(self.lista_sintomas_seleccionados)
+        
+        self.layout_botones = QVBoxLayout()
+        self.layout_botones.addWidget(self.boton_anadir_sintoma)
+        self.layout_botones.addWidget(self.boton_quitar_sintoma)
+        
+        self.layout_sintomas_total = QHBoxLayout()
+        self.layout_sintomas_total.addLayout(self.layout_sintomas)
+        self.layout_sintomas_total.addLayout(self.layout_botones)
+        self.layout_sintomas_total.addLayout(self.layout_sintomas_seleccionados)
+        
+        self.layout_principal = QVBoxLayout()
+        self.layout_principal.addLayout(self.layout_sintomas_total)
+        self.layout_principal.addWidget(self.boton_diagnostico)
+        self.layout_principal.addWidget(self.boton_comprobar_hipotesis)
+        self.layout_principal.addWidget(self.texto_diagnostico)
+        
+        self.setLayout(self.layout_principal)
     
-        self.setLayout(layout)
-        
-        # Horizontal layout for diagnosis, button, and detailed description
-        horizontal_layout = QHBoxLayout()
-        
-        # Cuadrícula para mostrar el diagnóstico
-        layout_desc = QVBoxLayout()
-        layout_desc.addWidget(QLabel("Diagnóstico:"))
-        self.descripcion_diagnostico = QTextEdit()
-        self.descripcion_diagnostico.setReadOnly(True)
-        layout_desc.addWidget(self.descripcion_diagnostico)
-        
-        horizontal_layout.addLayout(layout_desc)
-        
-        # Botón para obtener descripción detallada
-        self.btn_obtener_descripcion = QPushButton("Descripción\nMás Detallada\nDel Diagnóstico")
-        self.btn_obtener_descripcion.clicked.connect(self.obtener_descripcion_detallada)
-        self.btn_obtener_descripcion.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        self.btn_obtener_descripcion.setFixedSize(200, 100)  # Ajusta el tamaño del botón según sea necesario
-        horizontal_layout.addWidget(self.btn_obtener_descripcion)
-        
-        # Botón para resetear
-        self.btn_resetear = QPushButton("Resetear Aplicación")
-        self.btn_resetear.clicked.connect(self.resetear)
-        self.btn_resetear.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        
-        # Alineamos y estiramos el botón de "Resetear" en la esquina derecha
-        layout.addWidget(self.btn_resetear, 6, 1, Qt.AlignRight)
-        
-        # Cuadrícula para mostrar la descripción detallada del fallo
-        layout_desc2 = QVBoxLayout()
-        layout_desc2.addWidget(QLabel("Descripción del Diagnóstico:"))
-        self.descripcion_diagnostico2 = QTextEdit()
-        self.descripcion_diagnostico2.setReadOnly(True)
-        layout_desc2.addWidget(self.descripcion_diagnostico2)
-        
-        horizontal_layout.addLayout(layout_desc2)
-        
-        layout.addLayout(horizontal_layout, 4, 0, 1, 2)
-        
-        # Ajustar tamaños
-        self.descripcion_diagnostico.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        self.descripcion_diagnostico2.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
-        
-        layout.setRowMinimumHeight(2, 55) 
-        layout.setRowMinimumHeight(3, 55) 
-        
-        layout.setColumnStretch(0, 1)
-        layout.setColumnStretch(1, 1)
-        layout.setRowStretch(1, 1)
-        layout.setRowStretch(4, 1)
-        
-        self.crear_menu()
-        self.fallos_coincidentes = []  # Inicializar la lista de fallos coincidentes
-
-    def mostrar(self):
-        self.show()
-        
-    def agregar_sintoma(self):
-        item = self.lista_sintomas_disponibles.takeItem(self.lista_sintomas_disponibles.currentRow())
-        if item:
+    def anadir_sintoma(self):
+        items_seleccionados = self.lista_sintomas_disponibles.selectedItems()
+        for item in items_seleccionados:
             self.lista_sintomas_seleccionados.addItem(item.text())
-
+            self.lista_sintomas_disponibles.takeItem(self.lista_sintomas_disponibles.row(item))
+    
     def quitar_sintoma(self):
-        item = self.lista_sintomas_seleccionados.takeItem(self.lista_sintomas_seleccionados.currentRow())
-        if item:
+        items_seleccionados = self.lista_sintomas_seleccionados.selectedItems()
+        for item in items_seleccionados:
             self.lista_sintomas_disponibles.addItem(item.text())
-
+            self.lista_sintomas_seleccionados.takeItem(self.lista_sintomas_seleccionados.row(item))
+    
     def realizar_diagnostico(self):
+        if self.lista_sintomas_seleccionados.count() == 0:
+            self.texto_diagnostico.setPlainText("No se ha seleccionado ningún fallo.")
+            self.boton_comprobar_hipotesis.setEnabled(False)
+            return
+        
         sintomas_seleccionados = [self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]
-        self.fallos_coincidentes = self.modelo.realizar_diagnostico(sintomas_seleccionados)
-        
-        if self.fallos_coincidentes:
-            descripcion = "\n".join(self.fallos_coincidentes)
-            self.descripcion_diagnostico.setText(descripcion)
+        fallos = self.modelo.realizar_diagnostico(sintomas_seleccionados)
+
+        if fallos:
+            texto_diagnostico = "Posibles componentes dañados:\n"
+            for fallo in fallos:
+                texto_diagnostico += f"+ {fallo}: {self.modelo.obtener_descripcion(fallo)}\n\n"
+            texto_diagnostico += "Seleccione un componente para comprobar su estado."
+            self.texto_diagnostico.setPlainText(texto_diagnostico)
+            self.boton_comprobar_hipotesis.setEnabled(True)
         else:
-            self.descripcion_diagnostico.setText("No se encontraron fallos coincidentes")
-
-    def obtener_descripcion_detallada(self):
-        descripcion = "\n\n".join([self.modelo.obtener_descripcion(fallo) for fallo in self.fallos_coincidentes])
-        self.descripcion_diagnostico2.setText(descripcion)
-
-    def closeEvent(self, event):
-        reply = QMessageBox.question(self, 'Confirmar Cierre', '¿Estás seguro de que deseas salir?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            self.texto_diagnostico.setPlainText("No se encontraron fallos coincidentes.")
+            self.boton_comprobar_hipotesis.setEnabled(False)
+    
+    def comprobar_hipotesis(self):
+        fallo, ok = QInputDialog.getItem(self, "Comprobación de Hipótesis", "Seleccione un componente:", self.modelo.realizar_diagnostico([self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]), 0, False)
         
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
-            
-    def resetear(self):
-        # Limpiar la descripción del diagnóstico
-        self.descripcion_diagnostico.clear()
+        if ok:
+            resultado, descripcion = self.modelo.comprobar_hipotesis(fallo)
+            if resultado:
+                QMessageBox.information(self, "Comprobación de Hipótesis", descripcion)
+            else:
+                QMessageBox.information(self, "Comprobación de Hipótesis", descripcion)
 
-        # Limpiar la descripción detallada del diagnóstico
-        self.descripcion_diagnostico2.clear()
+# Vista principal de la aplicación
+class AplicacionDiagnosticoCoche(QApplication):
+    def __init__(self, argv):
+        super().__init__(argv)
+        self.modelo = ModeloDiagnosticoCoche()
+        self.vista_diagnostico_coche = VistaDiagnosticoCoche(self.modelo)
+        self.vista_diagnostico_coche.showMaximized()
 
-        # Mover los elementos de la lista de síntomas seleccionados de vuelta a la lista de síntomas disponibles
-        for i in range(self.lista_sintomas_seleccionados.count()):
-            item = self.lista_sintomas_seleccionados.item(i)
-            self.lista_sintomas_disponibles.addItem(item.text())
-        
-        # Limpiar la lista de síntomas seleccionados
-        self.lista_sintomas_seleccionados.clear()
-        
-        
-    def crear_menu(self):
-        # Creamos una nueva barra de menú
-        menu_bar = QMenuBar()
-    
-        # Añadimos la barra de menú a la ventana principal
-        self.layout().setMenuBar(menu_bar)
-    
-        # Creamos el menú "Archivo"
-        file_menu = menu_bar.addMenu("Archivo")
-    
-        # Acción para exportar datos
-        export_action = QAction("Exportar Datos Diagnóstico", self)
-        export_action.triggered.connect(self.exportar_datos)
-        file_menu.addAction(export_action)
-
-    def exportar_datos(self):
-        # Obtener el contenido de las cuadrículas 2, 3 y 4
-        contenido_cuadricula2 = "\n".join([self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())])
-        contenido_cuadricula3 = self.descripcion_diagnostico.toPlainText()
-        contenido_cuadricula4 = self.descripcion_diagnostico2.toPlainText()
-        # Aquí debes agregar el contenido de la cuadrícula 4 si tienes algún contenido relevante
-    
-        # Abrir un archivo para escribir
-        file_path, _ = QFileDialog.getSaveFileName(self, "Guardar archivo", "", "Archivos de texto (*.txt)")
-    
-        # Escribir el contenido en el archivo
-        with open(file_path, "w") as file:
-            file.write("Fallos Detectados:\n")
-            file.write(contenido_cuadricula2)
-            file.write("\n\nDiagnóstico:\n")
-            file.write(contenido_cuadricula3)
-            file.write("\n\nDescripción del Diagnóstico:\n")
-            file.write(contenido_cuadricula4)
-            # Aquí debes escribir el contenido de la cuadrícula 4 si tienes algún contenido relevante
-
-# Código principal
 if __name__ == "__main__":
-    app = QApplication([])
-    modelo = ModeloDiagnosticoCoche()
-    vista_diagnostico = VistaDiagnosticoCoche(modelo)
-    vista_diagnostico.resize(1000, 700)
-    vista_diagnostico.mostrar()
+    app = AplicacionDiagnosticoCoche(sys.argv)
     sys.exit(app.exec_())
