@@ -334,6 +334,11 @@ class VistaDiagnosticoCoche(QWidget):
         # Text area para mostrar el diagnóstico
         self.texto_diagnostico = QTextEdit()
         self.texto_diagnostico.setReadOnly(True)
+
+
+        # Listas y text area para mostrar las hipotesis
+        self.texto_hipotesis = QTextEdit()
+        self.texto_hipotesis.setReadOnly(True)
         
         # Layouts
         self.layout_sintomas = QVBoxLayout()
@@ -352,13 +357,17 @@ class VistaDiagnosticoCoche(QWidget):
         self.layout_sintomas_total.addLayout(self.layout_sintomas)
         self.layout_sintomas_total.addLayout(self.layout_botones)
         self.layout_sintomas_total.addLayout(self.layout_sintomas_seleccionados)
+
+        self.layout_diagnostico_hipotesis = QHBoxLayout()
+        self.layout_diagnostico_hipotesis.addWidget(self.texto_diagnostico)
+        self.layout_diagnostico_hipotesis.addWidget(self.texto_hipotesis)
         
         self.layout_principal = QVBoxLayout()
         self.layout_principal.addWidget(self.menu_bar)
         self.layout_principal.addLayout(self.layout_sintomas_total)
         self.layout_principal.addWidget(self.boton_diagnostico)
         self.layout_principal.addWidget(self.boton_comprobar_hipotesis)
-        self.layout_principal.addWidget(self.texto_diagnostico)
+        self.layout_principal.addLayout(self.layout_diagnostico_hipotesis)
         
         self.setLayout(self.layout_principal)
     
@@ -375,41 +384,58 @@ class VistaDiagnosticoCoche(QWidget):
             self.lista_sintomas_seleccionados.takeItem(self.lista_sintomas_seleccionados.row(item))
     
     def realizar_diagnostico(self):
-        sintomas_seleccionados = [self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]
-
-        if not sintomas_seleccionados:
+        if self.lista_sintomas_seleccionados.count() == 0:
             self.texto_diagnostico.setPlainText("No se ha seleccionado ningún síntoma.")
             self.boton_comprobar_hipotesis.setEnabled(False)
             return
         
+        sintomas_seleccionados = [self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]
         fallos = self.modelo.realizar_diagnostico(sintomas_seleccionados)
 
         if fallos:
             texto_diagnostico = "Posibles componentes dañados:\n"
             for fallo in fallos:
-                texto_diagnostico += f"+ {fallo}: {self.modelo.obtener_descripcion(fallo)}\n\n"
-            texto_diagnostico += "Seleccione un componente para comprobar su estado."
+                descripcion_componente = self.modelo.obtener_descripcion(fallo)
+                fallos_asociados = [f for f in self.modelo.fallos[fallo] if f in sintomas_seleccionados]
+                if fallos_asociados:
+                    texto_diagnostico += f"+ {fallo}: {descripcion_componente}\n"
+                    texto_diagnostico += f"[Fallos asociados: {', '.join(fallos_asociados)}]\n\n"
+            if texto_diagnostico == "Posibles componentes dañados:\n":
+                texto_diagnostico = "No se encontraron fallos coincidentes."
+                self.boton_comprobar_hipotesis.setEnabled(False)
+            else:
+                texto_diagnostico += "Seleccione un componente para comprobar su estado."
+                self.boton_comprobar_hipotesis.setEnabled(True)
             self.texto_diagnostico.setPlainText(texto_diagnostico)
-            self.boton_comprobar_hipotesis.setEnabled(True)
         else:
             self.texto_diagnostico.setPlainText("No se encontraron fallos coincidentes.")
             self.boton_comprobar_hipotesis.setEnabled(False)
     
     def comprobar_hipotesis(self):
-        fallo, ok = QInputDialog.getItem(self, "Comprobación de Hipótesis", "Seleccione un componente:", self.modelo.realizar_diagnostico([self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]), 0, False)
+        fallo_seleccionado, ok = QInputDialog.getItem(self, "Comprobación de Hipótesis", "Seleccione un componente:", self.modelo.realizar_diagnostico([self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]), 0, False)
         
         if ok:
-            resultado, descripcion = self.modelo.comprobar_hipotesis(fallo)
+            resultado, descripcion = self.modelo.comprobar_hipotesis(fallo_seleccionado)
             if resultado:
                 QMessageBox.information(self, "Comprobación de Hipótesis", descripcion)
             else:
                 QMessageBox.information(self, "Comprobación de Hipótesis", descripcion)
+            
+            # Mostrar el resultado en el cuadro de texto_hipotesis
+            texto_actual = self.vista_diagnostico_coche.texto_hipotesis.toPlainText()
+            texto_actual += f"Componente: {fallo_seleccionado}\nResultado: {descripcion}\n\n"
+            self.vista_diagnostico_coche.texto_hipotesis.setPlainText(texto_actual)
+
+            # Eliminar la hipótesis comprobada de la lista de síntomas seleccionados
+            item_a_eliminar = self.lista_sintomas_seleccionados.findItems(fallo_seleccionado, Qt.MatchExactly)[0]
+            self.lista_sintomas_seleccionados.takeItem(self.lista_sintomas_seleccionados.row(item_a_eliminar))
 
     def nuevo_diagnostico(self):
         # Limpiar las listas de síntomas seleccionados y el diagnóstico
         self.lista_sintomas_disponibles.clear()
         self.lista_sintomas_seleccionados.clear()
         self.texto_diagnostico.clear()
+        self.texto_hipotesis.clear()
         self.boton_comprobar_hipotesis.setEnabled(False)
         # Re-poblar la lista de síntomas disponibles
         self.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
