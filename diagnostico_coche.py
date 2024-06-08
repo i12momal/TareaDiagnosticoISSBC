@@ -308,12 +308,12 @@ class VistaDiagnosticoCoche(QWidget):
         self.accion_guardar_diagnostico.triggered.connect(self.guardar_diagnostico)
         
         # Lista de síntomas seleccionables
-        self.label_sintomas_disponibles = QLabel("Síntomas Disponibles:")
+        self.label_sintomas_disponibles = QLabel("Fallos Disponibles:")
         self.lista_sintomas_disponibles = QListWidget()
         self.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
         
         # Síntomas seleccionados
-        self.label_sintomas_seleccionados = QLabel("Síntomas Seleccionados:")
+        self.label_sintomas_seleccionados = QLabel("Fallos Seleccionados:")
         self.lista_sintomas_seleccionados = QListWidget()
         
         # Botones para añadir y quitar síntomas
