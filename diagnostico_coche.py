@@ -70,21 +70,21 @@ class ModeloDiagnosticoCoche:
             carga_parado = self.obtener_carga_bateria("parado")
             carga_marcha = self.obtener_carga_bateria("en marcha")
             if carga_parado < 12.4 or carga_marcha < 13.7:
-                return True, "La batería está descargada o no se está cargando correctamente, indicando un posible fallo."
+                return True, "La batería está descargada o no se está cargando correctamente, el componente se encuentra averiado."
             else:
                 return False, "La batería tiene carga suficiente en ambos estados."
 
         elif fallo == 'Neumáticos':
             presion = self.obtener_presion_neumaticos()
             if presion < 30:
-                return True, "La presión del neumático es baja, indicando un posible fallo."
+                return True, "La presión del neumático es baja, el componente se encuentra averiado."
             else:
                 return False, "La presión del neumático es adecuada."
 
         elif fallo == 'Bujía':
             resistencia = self.obtener_resistencia_bujia()
             if resistencia < 4 or resistencia > 8:
-                return True, "La resistencia de la bujía está fuera de los límites normales, indicando un posible fallo."
+                return True, "La resistencia de la bujía está fuera de los límites normales, el componente se encuentra averiado."
             else:
                 return False, "La resistencia de la bujía es adecuada."
 
@@ -93,7 +93,7 @@ class ModeloDiagnosticoCoche:
             temperatura = self.obtener_temperatura_motor()
             presion_aceite = self.obtener_presion_aceite_motor()
             if compresion < 120 or compresion > 160 or temperatura < 85 or temperatura > 105 or presion_aceite < 20 or presion_aceite > 60:
-                return True, "Uno o más valores del motor están fuera del rango normal, indicando un posible fallo."
+                return True, "Uno o más valores del motor están fuera del rango normal, el componente se encuentra averiado."
             else:
                 return False, "Los valores del motor son adecuados."
 
@@ -101,49 +101,49 @@ class ModeloDiagnosticoCoche:
             temperatura = self.obtener_temperatura_radiador()
             presion = self.obtener_presion_radiador()
             if temperatura < 85 or temperatura > 95 or presion < 13 or presion > 16:
-                return True, "La temperatura o presión del radiador está fuera del rango óptimo, indicando un posible fallo."
+                return True, "La temperatura o presión del radiador está fuera del rango óptimo, el componente se encuentra averiado."
             else:
                 return False, "La temperatura y presión del radiador son adecuadas."
 
         elif fallo == 'Chasis':
             desviacion = self.obtener_desviacion_chasis()
             if desviacion > 3:
-                return True, "La desviación del chasis es significativa, indicando un posible fallo."
+                return True, "La desviación del chasis es significativa, el componente se encuentra averiado."
             else:
                 return False, "La desviación del chasis es mínima y aceptable."
 
         elif fallo == 'Filtro de Aceite':
             presion = self.obtener_presion_aceite()
             if presion < 20 or presion > 60:
-                return True, "La presión de aceite está fuera del rango normal, indicando un posible fallo."
+                return True, "La presión de aceite está fuera del rango normal, el componente se encuentra averiado."
             else:
                 return False, "La presión de aceite es adecuada."
 
         elif fallo == 'Disco de Frenos':
             grosor = self.obtener_grosor_disco_frenos()
             if grosor < 22:
-                return True, "El grosor del disco de frenos está por debajo del mínimo, indicando un posible fallo."
+                return True, "El grosor del disco de frenos está por debajo del mínimo, el componente se encuentra averiado."
             else:
                 return False, "El grosor del disco de frenos es adecuado."
 
         elif fallo == 'Sistema de Inyección':
             presion_combustible = self.obtener_presion_combustible()
             if presion_combustible < 40 or presion_combustible > 60:
-                return True, "La presión de combustible está fuera del rango normal, indicando un posible fallo."
+                return True, "La presión de combustible está fuera del rango normal, el componente se encuentra averiado."
             else:
                 return False, "La presión de combustible es adecuada."
 
         elif fallo == 'Suspensión':
             altura = self.obtener_altura_suspension()
             if altura < 15 or altura > 20:
-                return True, "La altura de la suspensión está fuera del rango aceptable, indicando un posible fallo."
+                return True, "La altura de la suspensión está fuera del rango aceptable, el componente se encuentra averiado."
             else:
                 return False, "La altura de la suspensión es adecuada."
 
         elif fallo == 'Pastilla de Frenos':
             grosor_pastilla = self.obtener_grosor_pastilla_frenos()
             if grosor_pastilla < 3:
-                return True, "El grosor de la pastilla de frenos está por debajo del mínimo, indicando un posible fallo."
+                return True, "El grosor de la pastilla de frenos está por debajo del mínimo, el componente se encuentra averiado."
             else:
                 return False, "El grosor de la pastilla de frenos es adecuado."
 
@@ -157,7 +157,7 @@ class ModeloDiagnosticoCoche:
         elif fallo == 'Sistema de Refrigeración':
             presion_refrigerante = self.obtener_presion_refrigerante()
             if presion_refrigerante < 13 or presion_refrigerante > 16:
-                return True, "La presión del sistema de refrigeración está fuera del rango normal, indicando un posible fallo."
+                return True, "La presión del sistema de refrigeración está fuera del rango normal, el componente se encuentra averiado."
             else:
                 return False, "La presión del sistema de refrigeración es adecuada."
 
@@ -171,7 +171,7 @@ class ModeloDiagnosticoCoche:
         elif fallo == 'Sistema de Transmisión':
             presion_transmision = self.obtener_presion_transmision()
             if presion_transmision < 70 or presion_transmision > 120:
-                return True, "La presión del sistema de transmisión está fuera del rango normal, indicando un posible fallo."
+                return True, "La presión del sistema de transmisión está fuera del rango normal, el componente se encuentra averiado."
             else:
                 return False, "La presión del sistema de transmisión es adecuada."
 
@@ -293,6 +293,7 @@ class VistaDiagnosticoCoche(QWidget):
         super().__init__()
         self.modelo = modelo
         self.setWindowTitle("Diagnóstico de Fallos de Coche")
+        self.componentes_a_comprobar = []  # Lista para mantener los componentes que se pueden comprobar
         
         # Crear barra de menú
         self.menu_bar = QMenuBar(self)
@@ -386,6 +387,7 @@ class VistaDiagnosticoCoche(QWidget):
     def realizar_diagnostico(self):
         if self.lista_sintomas_seleccionados.count() == 0:
             self.texto_diagnostico.setPlainText("No se ha seleccionado ningún síntoma.")
+            self.texto_hipotesis.clear()
             self.boton_comprobar_hipotesis.setEnabled(False)
             return
         
@@ -404,15 +406,17 @@ class VistaDiagnosticoCoche(QWidget):
                 texto_diagnostico = "No se encontraron fallos coincidentes."
                 self.boton_comprobar_hipotesis.setEnabled(False)
             else:
-                texto_diagnostico += "Seleccione un componente para comprobar su estado."
                 self.boton_comprobar_hipotesis.setEnabled(True)
             self.texto_diagnostico.setPlainText(texto_diagnostico)
+            self.componentes_a_comprobar = fallos
         else:
             self.texto_diagnostico.setPlainText("No se encontraron fallos coincidentes.")
             self.boton_comprobar_hipotesis.setEnabled(False)
-    
+
+        self.texto_hipotesis.clear()
+   
     def comprobar_hipotesis(self):
-        fallo_seleccionado, ok = QInputDialog.getItem(self, "Comprobación de Hipótesis", "Seleccione un componente:", self.modelo.realizar_diagnostico([self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]), 0, False)
+        fallo_seleccionado, ok = QInputDialog.getItem(self, "Comprobación de Hipótesis", "Seleccione un componente:", self.componentes_a_comprobar, 0, False)
         
         if ok:
             resultado, descripcion = self.modelo.comprobar_hipotesis(fallo_seleccionado)
@@ -421,14 +425,13 @@ class VistaDiagnosticoCoche(QWidget):
             else:
                 QMessageBox.information(self, "Comprobación de Hipótesis", descripcion)
             
+            # Eliminar el componente comprobado de la lista
+            self.componentes_a_comprobar.remove(fallo_seleccionado)
+            
             # Mostrar el resultado en el cuadro de texto_hipotesis
-            texto_actual = self.vista_diagnostico_coche.texto_hipotesis.toPlainText()
-            texto_actual += f"Componente: {fallo_seleccionado}\nResultado: {descripcion}\n\n"
-            self.vista_diagnostico_coche.texto_hipotesis.setPlainText(texto_actual)
-
-            # Eliminar la hipótesis comprobada de la lista de síntomas seleccionados
-            item_a_eliminar = self.lista_sintomas_seleccionados.findItems(fallo_seleccionado, Qt.MatchExactly)[0]
-            self.lista_sintomas_seleccionados.takeItem(self.lista_sintomas_seleccionados.row(item_a_eliminar))
+            texto_actual = self.texto_hipotesis.toPlainText()
+            texto_actual += f"- Comprobación de hipótesis, componente {fallo_seleccionado}\nResultado del análisis: {descripcion}\n\n"
+            self.texto_hipotesis.setPlainText(texto_actual)
 
     def nuevo_diagnostico(self):
         # Limpiar las listas de síntomas seleccionados y el diagnóstico
@@ -454,6 +457,8 @@ class VistaDiagnosticoCoche(QWidget):
                     file.write(f"- {self.lista_sintomas_seleccionados.item(i).text()}\n")
                 file.write("\nDESCRIPCIÓN DEL DIAGNÓSTICO:\n")
                 file.write(self.texto_diagnostico.toPlainText())
+                file.write("\nCOMPROBACIÓN DE LAS HIPÓTESIS:\n")
+                file.write(self.texto_hipotesis.toPlainText())
 
 # Vista principal de la aplicación
 class AplicacionDiagnosticoCoche(QApplication):
