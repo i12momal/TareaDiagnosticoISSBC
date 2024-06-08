@@ -315,6 +315,9 @@ class VistaDiagnosticoCoche(QWidget):
         # Síntomas seleccionados
         self.label_sintomas_seleccionados = QLabel("Fallos Seleccionados:")
         self.lista_sintomas_seleccionados = QListWidget()
+
+        self.label_resultado_diagnostico = QLabel("Resultado Diagnostico:")
+        self.label_comprobacion_hipotesis = QLabel("Comprobación hipótesis:")
         
         # Botones para añadir y quitar síntomas
         self.boton_anadir_sintoma = QPushButton("->")
@@ -359,9 +362,22 @@ class VistaDiagnosticoCoche(QWidget):
         self.layout_sintomas_total.addLayout(self.layout_botones)
         self.layout_sintomas_total.addLayout(self.layout_sintomas_seleccionados)
 
+        # Layouts para Diagnóstico e Hipótesis
         self.layout_diagnostico_hipotesis = QHBoxLayout()
-        self.layout_diagnostico_hipotesis.addWidget(self.texto_diagnostico)
-        self.layout_diagnostico_hipotesis.addWidget(self.texto_hipotesis)
+
+        # Layout para Diagnóstico
+        layout_diagnostico = QVBoxLayout()
+        layout_diagnostico.addWidget(QLabel('Resultado del Diagnóstico:'))
+        layout_diagnostico.addWidget(self.texto_diagnostico)
+
+        # Layout para Hipótesis
+        layout_hipotesis = QVBoxLayout()
+        layout_hipotesis.addWidget(QLabel('Comprobación de las Hipótesis:'))
+        layout_hipotesis.addWidget(self.texto_hipotesis)
+
+        # Añadir ambos layouts al layout horizontal
+        self.layout_diagnostico_hipotesis.addLayout(layout_diagnostico)
+        self.layout_diagnostico_hipotesis.addLayout(layout_hipotesis)
         
         self.layout_principal = QVBoxLayout()
         self.layout_principal.addWidget(self.menu_bar)
