@@ -375,12 +375,13 @@ class VistaDiagnosticoCoche(QWidget):
             self.lista_sintomas_seleccionados.takeItem(self.lista_sintomas_seleccionados.row(item))
     
     def realizar_diagnostico(self):
-        if self.lista_sintomas_seleccionados.count() == 0:
+        sintomas_seleccionados = [self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]
+
+        if not sintomas_seleccionados:
             self.texto_diagnostico.setPlainText("No se ha seleccionado ningún síntoma.")
             self.boton_comprobar_hipotesis.setEnabled(False)
             return
         
-        sintomas_seleccionados = [self.lista_sintomas_seleccionados.item(i).text() for i in range(self.lista_sintomas_seleccionados.count())]
         fallos = self.modelo.realizar_diagnostico(sintomas_seleccionados)
 
         if fallos:
