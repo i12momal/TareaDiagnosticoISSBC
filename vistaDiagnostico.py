@@ -133,7 +133,9 @@ class VistaDiagnosticoCoche(QWidget):
         self.setLayout(self.layout_principal)
 
     def saveText(self):
-        text = self.input1.text()
+        text = self.input2.text()
+        text += f"\n"
+        text += self.input1.text()
         self.input2.setText(text)
         self.input1.clear()
 
