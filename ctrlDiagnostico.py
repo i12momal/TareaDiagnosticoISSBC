@@ -74,7 +74,7 @@ class ControladorDiagnosticoCoche:
         if ok:
             resultado, descripcion = self.modelo.comprobar_hipotesis(fallo_seleccionado)
             if resultado:
-                QMessageBox.information(self,vista, "Comprobación de Hipótesis", descripcion)
+                QMessageBox.information(self.vista, "Comprobación de Hipótesis", descripcion)
             else:
                 QMessageBox.information(self.vista, "Comprobación de Hipótesis", descripcion)
             
