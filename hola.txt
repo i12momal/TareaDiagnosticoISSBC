@@ -1,25 +1,22 @@
 FALLOS DETECTADOS:
-- Vibraciones anormales
+- Emisiones de humo extrañas
 
 DESCRIPCIÓN DEL DIAGNÓSTICO:
 Posibles componentes dañados:
-+ Chasis: El chasis es la estructura base del vehículo que soporta y une todos los componentes; daños en él pueden causar vibraciones anormales, ruidos extraños y problemas de dirección.
-[Fallos asociados: Vibraciones anormales]
++ Motor: El motor es la fuente de energía del vehículo, convirtiendo el combustible en movimiento; problemas en este componente pueden causar sobrecalentamiento, pérdida de potencia, ruidos inusuales, emisiones de humo anómalas y un consumo excesivo de combustible.
+[Fallos asociados: Emisiones de humo extrañas]
 
-+ Suspensión: La suspensión conecta el vehículo con sus ruedas y absorbe las irregularidades del terreno, proporcionando una conducción suave; fallas en este sistema pueden resultar en vibraciones anormales y problemas de dirección.
-[Fallos asociados: Vibraciones anormales]
++ Filtro de Aire: El filtro de aire impide la entrada de partículas y polvo al motor, manteniéndolo limpio; si está sucio, puede reducir la potencia del motor y provocar emisiones de humo anómalas.
+[Fallos asociados: Emisiones de humo extrañas]
 
-+ Neumáticos: Los neumáticos, el único contacto del vehículo con la carretera, proporcionan tracción y estabilidad; su desgaste o daño puede ocasionar vibraciones, pérdida de capacidad de frenado y problemas en la dirección.
-[Fallos asociados: Vibraciones anormales]
-
-+ Sistema de Transmisión: El sistema de transmisión transfiere la potencia del motor a las ruedas, permitiendo el movimiento del vehículo; problemas en este sistema pueden causar pérdida de potencia, vibraciones anormales, pérdida de eficacia en el frenado y problemas de dirección.
-[Fallos asociados: Vibraciones anormales]
++ Sistema de Escape: El sistema de escape expulsa los gases residuales del motor, reduciendo el ruido y las emisiones contaminantes; fallos en este sistema pueden causar pérdida de potencia, ruidos inusuales y emisiones de humo anormales.
+[Fallos asociados: Emisiones de humo extrañas]
 
 
 COMPROBACIÓN DE LAS HIPÓTESIS:
-- Comprobación de hipótesis, componente Neumáticos
-Resultado del análisis: La presión del neumático es baja, el componente se encuentra averiado.
+- Comprobación de hipótesis, componente Filtro de Aire
+Resultado del análisis: La resistencia al flujo de aire es adecuada.
 
 
 HIPÓTESIS FINAL:
-Neumático
+aaaaaaaaa

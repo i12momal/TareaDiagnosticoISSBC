@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jun  5 16:28:35 2024
-
-@author: joaquin
-"""
 
 class Fallo():
     def __init__(self,nombre=None,tipo=None,valoresPermitidos=None,valor=None):

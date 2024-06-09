@@ -331,20 +331,15 @@ class VistaDiagnosticoCoche(QWidget):
         self.texto_diagnostico = QTextEdit()
         self.texto_diagnostico.setReadOnly(True)
 
-
         # Listas y text area para mostrar las hipotesis
         self.texto_hipotesis = QTextEdit()
         self.texto_hipotesis.setReadOnly(True)
 
         #Hipotesis final
-        # Etiqueta
         self.label = QLabel('Hipótesis final:', self)
-        
-        # Primer cuadro de texto
         self.input1 = QLineEdit(self)
-        
-        # Segundo cuadro de texto
         self.input2 = QLineEdit(self)
+        self.input2.setReadOnly(True)
         
         # Botón Guardar
         self.saveButton = QPushButton('Guardar Hipótesis', self)
@@ -498,6 +493,7 @@ class VistaDiagnosticoCoche(QWidget):
         self.lista_sintomas_seleccionados.clear()
         self.texto_diagnostico.clear()
         self.texto_hipotesis.clear()
+        self.input2.clear()
         self.boton_comprobar_hipotesis.setEnabled(False)
         # Re-poblar la lista de síntomas disponibles
         self.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
