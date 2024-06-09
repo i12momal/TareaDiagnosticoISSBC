@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QFileDialog, QMenuBar, QAction, QWidget, QVBoxLayout, QLabel, QPushButton, QListWidget, QGridLayout, QTextEdit, QMessageBox, QSizePolicy, QHBoxLayout, QInputDialog
+from PyQt5.QtWidgets import QApplication, QLineEdit, QFileDialog, QMenuBar, QAction, QWidget, QVBoxLayout, QLabel, QPushButton, QListWidget, QGridLayout, QTextEdit, QMessageBox, QSizePolicy, QHBoxLayout, QInputDialog
 from PyQt5.QtCore import Qt
 
 # Modelo de diagnóstico de fallos de coche
@@ -335,6 +335,26 @@ class VistaDiagnosticoCoche(QWidget):
         # Listas y text area para mostrar las hipotesis
         self.texto_hipotesis = QTextEdit()
         self.texto_hipotesis.setReadOnly(True)
+
+        #Hipotesis final
+        # Etiqueta
+        self.label = QLabel('Hipótesis final:', self)
+        
+        # Primer cuadro de texto
+        self.input1 = QLineEdit(self)
+        
+        # Segundo cuadro de texto
+        self.input2 = QLineEdit(self)
+        
+        # Botón Guardar
+        self.saveButton = QPushButton('Guardar Hipótesis', self)
+        self.saveButton.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.saveButton.clicked.connect(self.saveText)
+        
+        # Botón Eliminar
+        self.deleteButton = QPushButton('Eliminar Hipótesis', self)
+        self.deleteButton.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.deleteButton.clicked.connect(self.deleteText)
         
         # Layouts
         self.layout_sintomas = QVBoxLayout()
@@ -354,6 +374,22 @@ class VistaDiagnosticoCoche(QWidget):
         self.layout_sintomas_total.addLayout(self.layout_botones)
         self.layout_sintomas_total.addLayout(self.layout_sintomas_seleccionados)
 
+        #Hipotesis final
+        self.vbox = QVBoxLayout()
+        self.vbox.addWidget(self.label)
+        self.vbox.addWidget(self.input1)
+        self.vbox.addWidget(self.input2)
+        
+
+        # Layout horizontal para los botones Guardar y Eliminar
+        self.hbox_buttons = QHBoxLayout()
+        self.hbox_buttons.addStretch(1)  # Añadir espacio flexible para empujar los botones a la derecha
+        self.hbox_buttons.addWidget(self.saveButton)
+        self.hbox_buttons.addWidget(self.deleteButton)
+
+        self.vbox.addLayout(self.hbox_buttons)
+
+        
         # Layouts para Diagnóstico e Hipótesis
         self.layout_diagnostico_hipotesis = QHBoxLayout()
 
@@ -377,8 +413,18 @@ class VistaDiagnosticoCoche(QWidget):
         self.layout_principal.addWidget(self.boton_diagnostico)
         self.layout_principal.addWidget(self.boton_comprobar_hipotesis)
         self.layout_principal.addLayout(self.layout_diagnostico_hipotesis)
+        self.layout_principal.addLayout(self.vbox)
         
         self.setLayout(self.layout_principal)
+
+    def saveText(self):
+        text = self.input1.text()
+        self.input2.setText(text)
+        self.input1.clear()
+
+    def deleteText(self):
+        self.input1.clear()
+        self.input2.clear()
     
     def anadir_sintoma(self):
         items_seleccionados = self.lista_sintomas_disponibles.selectedItems()
@@ -457,6 +503,7 @@ class VistaDiagnosticoCoche(QWidget):
         self.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
 
     def guardar_diagnostico(self):
+        contenido_input2 = self.input2.text()
         if self.lista_sintomas_seleccionados.count() == 0 or not self.texto_diagnostico.toPlainText():
             QMessageBox.warning(self, "Guardar Diagnóstico", "No hay diagnóstico para guardar.")
             return
@@ -472,6 +519,8 @@ class VistaDiagnosticoCoche(QWidget):
                 file.write(self.texto_diagnostico.toPlainText())
                 file.write("\nCOMPROBACIÓN DE LAS HIPÓTESIS:\n")
                 file.write(self.texto_hipotesis.toPlainText())
+                file.write("\nHIPÓTESIS FINAL:\n")
+                file.write(contenido_input2)
 
 # Vista principal de la aplicación
 class AplicacionDiagnosticoCoche(QApplication):

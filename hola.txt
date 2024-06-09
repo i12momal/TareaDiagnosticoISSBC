@@ -1,0 +1,25 @@
+FALLOS DETECTADOS:
+- Vibraciones anormales
+
+DESCRIPCIÓN DEL DIAGNÓSTICO:
+Posibles componentes dañados:
++ Chasis: El chasis es la estructura base del vehículo que soporta y une todos los componentes; daños en él pueden causar vibraciones anormales, ruidos extraños y problemas de dirección.
+[Fallos asociados: Vibraciones anormales]
+
++ Suspensión: La suspensión conecta el vehículo con sus ruedas y absorbe las irregularidades del terreno, proporcionando una conducción suave; fallas en este sistema pueden resultar en vibraciones anormales y problemas de dirección.
+[Fallos asociados: Vibraciones anormales]
+
++ Neumáticos: Los neumáticos, el único contacto del vehículo con la carretera, proporcionan tracción y estabilidad; su desgaste o daño puede ocasionar vibraciones, pérdida de capacidad de frenado y problemas en la dirección.
+[Fallos asociados: Vibraciones anormales]
+
++ Sistema de Transmisión: El sistema de transmisión transfiere la potencia del motor a las ruedas, permitiendo el movimiento del vehículo; problemas en este sistema pueden causar pérdida de potencia, vibraciones anormales, pérdida de eficacia en el frenado y problemas de dirección.
+[Fallos asociados: Vibraciones anormales]
+
+
+COMPROBACIÓN DE LAS HIPÓTESIS:
+- Comprobación de hipótesis, componente Neumáticos
+Resultado del análisis: La presión del neumático es baja, el componente se encuentra averiado.
+
+
+HIPÓTESIS FINAL:
+Neumático
