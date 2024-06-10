@@ -8,15 +8,17 @@ Created on Thu Jun  6 17:26:53 2024
 
 import sys
 from PyQt5.QtWidgets import QApplication
+from bcFallosVehiculo import FallosVehiculo
 from modDiagnostico import ModeloDiagnosticoCoche
 from vistaDiagnostico import VistaDiagnosticoCoche
 from ctrlDiagnostico import ControladorDiagnosticoCoche
 
 def main():
     app = QApplication(sys.argv)
-    modelo = ModeloDiagnosticoCoche()
+    bcFallos = FallosVehiculo()
+    modelo = ModeloDiagnosticoCoche(bcFallos)
     vista = VistaDiagnosticoCoche()
-    controlador = ControladorDiagnosticoCoche(modelo, vista)
+    controlador = ControladorDiagnosticoCoche(modelo, vista, bcFallos)
     vista.showMaximized()
     sys.exit(app.exec_())
 

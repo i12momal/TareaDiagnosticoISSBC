@@ -9,7 +9,8 @@ Created on Thu Jun  6 17:24:32 2024
 from PyQt5.QtWidgets import (QInputDialog, QMessageBox, QFileDialog)
 
 class ControladorDiagnosticoCoche:
-    def __init__(self, modelo, vista):
+    def __init__(self, modelo, vista, bcFallos):
+        self.bcFallos = bcFallos
         self.modelo = modelo
         self.vista = vista
 
@@ -45,7 +46,7 @@ class ControladorDiagnosticoCoche:
         fallos_coincidentes = []
 
         # Buscar si alguno de los síntomas seleccionados coincide con alguno de los síntomas asociados a cada componente
-        for fallo, sintomas_fallo in self.modelo.fallos.items():
+        for fallo, sintomas_fallo in self.bcFallos.fallos.items():
             for sintoma in sintomas_seleccionados:
                 if sintoma in sintomas_fallo:
                     fallos_coincidentes.append(fallo)
@@ -54,8 +55,8 @@ class ControladorDiagnosticoCoche:
         if fallos_coincidentes:
             texto_diagnostico = "Posibles componentes dañados:\n"
             for fallo in fallos_coincidentes:
-                descripcion_componente = self.modelo.obtener_descripcion(fallo)
-                fallos_asociados = [f for f in self.modelo.fallos[fallo] if f in sintomas_seleccionados]
+                descripcion_componente = self.bcFallos.obtener_descripcion(fallo)
+                fallos_asociados = [f for f in self.bcFallos.fallos[fallo] if f in sintomas_seleccionados]
                 if fallos_asociados:
                     texto_diagnostico += f"+ {fallo}: {descripcion_componente}\n"
                     texto_diagnostico += f"[Fallos asociados: {', '.join(fallos_asociados)}]\n\n"
