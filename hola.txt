@@ -1,22 +1,27 @@
 FALLOS DETECTADOS:
-- Emisiones de humo extrañas
+- Sobrecalentamiento de motor
 
 DESCRIPCIÓN DEL DIAGNÓSTICO:
 Posibles componentes dañados:
 + Motor: El motor es la fuente de energía del vehículo, convirtiendo el combustible en movimiento; problemas en este componente pueden causar sobrecalentamiento, pérdida de potencia, ruidos inusuales, emisiones de humo anómalas y un consumo excesivo de combustible.
-[Fallos asociados: Emisiones de humo extrañas]
+[Fallos asociados: Sobrecalentamiento de motor]
 
-+ Filtro de Aire: El filtro de aire impide la entrada de partículas y polvo al motor, manteniéndolo limpio; si está sucio, puede reducir la potencia del motor y provocar emisiones de humo anómalas.
-[Fallos asociados: Emisiones de humo extrañas]
++ Radiador: El radiador es clave en el sistema de enfriamiento del motor, ayudando a disipar el calor; si falla, el motor puede sobrecalentarse rápidamente.
+[Fallos asociados: Sobrecalentamiento de motor]
 
-+ Sistema de Escape: El sistema de escape expulsa los gases residuales del motor, reduciendo el ruido y las emisiones contaminantes; fallos en este sistema pueden causar pérdida de potencia, ruidos inusuales y emisiones de humo anormales.
-[Fallos asociados: Emisiones de humo extrañas]
++ Filtro de Aceite: El filtro de aceite mantiene el aceite del motor limpio al eliminar impurezas; si está obstruido, puede causar sobrecalentamiento del motor debido a la falta de lubricación adecuada.
+[Fallos asociados: Sobrecalentamiento de motor]
+
++ Sistema de Refrigeración: El sistema de refrigeración mantiene la temperatura del motor en un rango óptimo para evitar sobrecalentamientos; un fallo en este sistema puede resultar en sobrecalentamiento y pérdida de potencia del motor.
+[Fallos asociados: Sobrecalentamiento de motor]
 
 
 COMPROBACIÓN DE LAS HIPÓTESIS:
-- Comprobación de hipótesis, componente Filtro de Aire
-Resultado del análisis: La resistencia al flujo de aire es adecuada.
+- Comprobación de hipótesis, componente Filtro de Aceite
+Resultado del análisis: La presión de aceite es adecuada.
 
 
 HIPÓTESIS FINAL:
-aaaaaaaaa
+
+aaaa
+csca

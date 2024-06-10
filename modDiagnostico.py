@@ -17,7 +17,7 @@ class ModeloDiagnosticoCoche:
             'Motor': ['Sobrecalentamiento de motor', 'Pérdida de potencia', 'Ruidos extraños', 'Emisiones de humo extrañas', 'Consumo elevado de combustible'],
             'Radiador': ['Sobrecalentamiento de motor'],
             'Chasis': ['Vibraciones anormales', 'Ruidos extraños', 'Problemas de dirección'],
-            'Filtro de aceite': ['Sobrecalentamiento de motor'],
+            'Filtro de Aceite': ['Sobrecalentamiento de motor'],
             'Disco de Frenos': ['Pérdida de frenado', 'Ruidos extraños'],
             'Sistema de Inyección': ['El coche no arranca', 'Pérdida de potencia', 'Consumo elevado de combustible'],
             'Suspensión': ['Vibraciones anormales', 'Problemas de dirección'],
