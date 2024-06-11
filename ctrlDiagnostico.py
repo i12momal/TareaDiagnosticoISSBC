@@ -8,7 +8,7 @@ Created on Thu Jun  6 17:24:32 2024
 
 from PyQt5.QtWidgets import (QInputDialog, QMessageBox, QFileDialog)
 
-class ControladorDiagnosticoCoche:
+class ControladorDiagnostico:
     def __init__(self, modelo, vista, bcFallos):
         self.bcFallos = bcFallos
         self.modelo = modelo
@@ -73,7 +73,7 @@ class ControladorDiagnosticoCoche:
         fallo_seleccionado, ok = QInputDialog.getItem(self.vista, "Comprobación de Hipótesis", "Seleccione un componente:", self.vista.componentes_a_comprobar, 0, False)
         
         if ok:
-            resultado, descripcion = self.modelo.comprobar_hipotesis(fallo_seleccionado)
+            resultado, descripcion = self.bcFallos.comprobar_hipotesis(fallo_seleccionado)
             if resultado:
                 QMessageBox.information(self.vista, "Comprobación de Hipótesis", descripcion)
             else:

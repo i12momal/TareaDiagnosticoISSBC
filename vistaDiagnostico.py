@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import (QApplication, QLineEdit, QFileDialog, QMenuBar, QAc
                             QListWidget, QGridLayout, QTextEdit, QMessageBox, QSizePolicy, QHBoxLayout, QInputDialog, QWidget)
 from PyQt5.QtCore import Qt
 
-class VistaDiagnosticoCoche(QWidget):
+class VistaDiagnostico(QWidget):
     def __init__(self):
         super().__init__()
         self.init_ui()

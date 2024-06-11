@@ -1,0 +1,21 @@
+FALLOS DETECTADOS:
+- Ruido inusual
+
+DESCRIPCIÓN DEL DIAGNÓSTICO:
+Posibles componentes dañados:
++ Disco Duro: El disco duro es donde se almacenan los datos permanentemente. Problemas con el disco duro pueden resultar en rendimiento lento, archivos corruptos, fallos de arranque y ruidos inusuales indicando posibles fallos mecánicos.
+[Fallos asociados: Ruido inusual]
+
++ Sistema de Refrigeración: El sistema de refrigeración mantiene la temperatura adecuada para los componentes. Un fallo en este sistema puede provocar sobrecalentamiento, apagados inesperados y ruidos inusuales debidos a los ventiladores o a la falta de mantenimiento.
+[Fallos asociados: Ruido inusual]
+
+
+COMPROBACIÓN DE LAS HIPÓTESIS:
+- Comprobación de hipótesis, componente Disco Duro
+Resultado del análisis: La temperatura y el espacio libre del disco duro son adecuados.
+
+
+HIPÓTESIS FINAL:
+
+aaaaa
+aa
