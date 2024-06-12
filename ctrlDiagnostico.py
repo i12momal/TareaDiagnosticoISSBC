@@ -9,7 +9,9 @@ Created on Thu Jun  6 17:24:32 2024
 from PyQt5.QtWidgets import (QInputDialog, QMessageBox, QFileDialog)
 
 class ControladorDiagnostico:
+    #Constructor del controlador
     def __init__(self, modelo, vista, bcFallos):
+        # Inicialización de variables
         self.bcFallos = bcFallos
         self.modelo = modelo
         self.vista = vista
@@ -23,25 +25,30 @@ class ControladorDiagnostico:
         self.vista.accion_nuevo_diagnostico.triggered.connect(self.nuevo_diagnostico)
         self.vista.accion_guardar_diagnostico.triggered.connect(self.guardar_diagnostico)
 
+    # Método para agregar un síntoma a la lista de síntomas seleccionados
     def anadir_sintoma(self):
         items_seleccionados = self.vista.lista_sintomas_disponibles.selectedItems()
         for item in items_seleccionados:
             self.vista.lista_sintomas_seleccionados.addItem(item.text())
             self.vista.lista_sintomas_disponibles.takeItem(self.vista.lista_sintomas_disponibles.row(item))
     
+     # Método para quitar un síntoma de la lista de síntomas seleccionados
     def quitar_sintoma(self):
         items_seleccionados = self.vista.lista_sintomas_seleccionados.selectedItems()
         for item in items_seleccionados:
             self.vista.lista_sintomas_disponibles.addItem(item.text())
             self.vista.lista_sintomas_seleccionados.takeItem(self.vista.lista_sintomas_seleccionados.row(item))
     
+    # Método para realizar el diagnóstico basado en los síntomas seleccionados
     def realizar_diagnostico(self):
+        # Verifica si se han seleccionado síntomas
         if self.vista.lista_sintomas_seleccionados.count() == 0:
             self.vista.texto_diagnostico.setPlainText("No se ha seleccionado ningún síntoma.")
             self.vista.texto_hipotesis.clear()
             self.vista.boton_comprobar_hipotesis.setEnabled(False)
             return
 
+        # Obtiene los síntomas seleccionados
         sintomas_seleccionados = [self.vista.lista_sintomas_seleccionados.item(i).text() for i in range(self.vista.lista_sintomas_seleccionados.count())]
         fallos_coincidentes = []
 
@@ -52,6 +59,7 @@ class ControladorDiagnostico:
                     fallos_coincidentes.append(fallo)
                     break  # Si se encuentra al menos un síntoma asociado al fallo, se agrega el fallo y se sale del bucle interno
 
+        # Si se encuentran fallos coincidentes
         if fallos_coincidentes:
             texto_diagnostico = "Posibles componentes dañados:\n"
             for fallo in fallos_coincidentes:
@@ -69,6 +77,7 @@ class ControladorDiagnostico:
 
         self.vista.texto_hipotesis.clear()
  
+    # Método para comprobar una hipótesis seleccionada
     def comprobar_hipotesis(self):
         fallo_seleccionado, ok = QInputDialog.getItem(self.vista, "Comprobación de Hipótesis", "Seleccione un componente:", self.vista.componentes_a_comprobar, 0, False)
         
@@ -87,6 +96,7 @@ class ControladorDiagnostico:
             texto_actual += f"- Comprobación de hipótesis, componente {fallo_seleccionado}\nResultado del análisis: {descripcion}\n\n"
             self.vista.texto_hipotesis.setPlainText(texto_actual)
 
+    # Método para comenzar un nuevo diagnóstico
     def nuevo_diagnostico(self):
         # Limpiar las listas de síntomas seleccionados y el diagnóstico
         self.vista.lista_sintomas_disponibles.clear()
@@ -98,6 +108,7 @@ class ControladorDiagnostico:
         # Re-poblar la lista de síntomas disponibles
         self.vista.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
 
+    # Método para guardar el diagnóstico actual
     def guardar_diagnostico(self):
         contenido_input2 = self.vista.input2.text()
         if self.vista.lista_sintomas_seleccionados.count() == 0 or not self.vista.texto_diagnostico.toPlainText():
