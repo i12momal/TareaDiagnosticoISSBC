@@ -36,7 +36,9 @@ class VistaDiagnostico(QWidget):
         self.label_sintomas_seleccionados = QLabel("Fallos Seleccionados:")
         self.lista_sintomas_seleccionados = QListWidget()
 
+        # Etiqueta para mostrar el resultado del diagnóstico
         self.label_resultado_diagnostico = QLabel("Resultado Diagnostico:")
+        # Etiqueta para mostrar la comprobación de hipótesis
         self.label_comprobacion_hipotesis = QLabel("Comprobación hipótesis:")
         
         # Botones para añadir y quitar síntomas
@@ -132,6 +134,7 @@ class VistaDiagnostico(QWidget):
         
         self.setLayout(self.layout_principal)
 
+    #Agrega el texto del input1 al input2 separado por una nueva línea y luego limpia input1
     def saveText(self):
         text = self.input2.text()
         text += f"\n"
@@ -139,6 +142,7 @@ class VistaDiagnostico(QWidget):
         self.input2.setText(text)
         self.input1.clear()
 
+    #Limpia tanto input1 como input2
     def deleteText(self):
         self.input1.clear()
         self.input2.clear()
