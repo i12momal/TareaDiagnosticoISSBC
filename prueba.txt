@@ -1,0 +1,56 @@
+FALLOS DETECTADOS:
+- El coche no arranca
+- Sobrecalentamiento de motor
+- Consumo elevado de combustible
+
+DESCRIPCIÓN DEL DIAGNÓSTICO:
+Posibles componentes dañados:
++ Batería: La batería suministra la energía eléctrica necesaria para arrancar el coche y alimentar los sistemas eléctricos cuando el motor está apagado y, si falla, el coche no arranca.
+[Fallos asociados: El coche no arranca]
+
++ Bujía: Las bujías generan la chispa que enciende la mezcla de aire y combustible en el motor; su mal funcionamiento puede causar que el coche no arranque y una pérdida notable de potencia.
+[Fallos asociados: El coche no arranca]
+
++ Motor: El motor es la fuente de energía del vehículo, convirtiendo el combustible en movimiento; problemas en este componente pueden causar sobrecalentamiento, pérdida de potencia, ruidos inusuales, emisiones de humo anómalas y un consumo excesivo de combustible.
+[Fallos asociados: Sobrecalentamiento de motor, Consumo elevado de combustible]
+
++ Radiador: El radiador es clave en el sistema de enfriamiento del motor, ayudando a disipar el calor; si falla, el motor puede sobrecalentarse rápidamente.
+[Fallos asociados: Sobrecalentamiento de motor]
+
++ Filtro de Aceite: El filtro de aceite mantiene el aceite del motor limpio al eliminar impurezas; si está obstruido, puede causar sobrecalentamiento del motor debido a la falta de lubricación adecuada.
+[Fallos asociados: Sobrecalentamiento de motor]
+
++ Sistema de Inyección: El sistema de inyección administra la cantidad exacta de combustible al motor; su mal funcionamiento puede impedir que el coche arranque, reducir la potencia y aumentar el consumo de combustible.
+[Fallos asociados: El coche no arranca, Consumo elevado de combustible]
+
++ Sistema de Refrigeración: El sistema de refrigeración mantiene la temperatura del motor en un rango óptimo para evitar sobrecalentamientos; un fallo en este sistema puede resultar en sobrecalentamiento y pérdida de potencia del motor.
+[Fallos asociados: Sobrecalentamiento de motor]
+
+
+COMPROBACIÓN DE LAS HIPÓTESIS:
+- Comprobación de hipótesis, componente Batería
+Resultado del análisis: La batería está descargada o no se está cargando correctamente, el componente se encuentra averiado.
+
+- Comprobación de hipótesis, componente Bujía
+Resultado del análisis: La resistencia de la bujía es adecuada.
+
+- Comprobación de hipótesis, componente Motor
+Resultado del análisis: Los valores del motor son adecuados.
+
+- Comprobación de hipótesis, componente Radiador
+Resultado del análisis: La temperatura y presión del radiador son adecuadas.
+
+- Comprobación de hipótesis, componente Filtro de Aceite
+Resultado del análisis: La presión de aceite es adecuada.
+
+- Comprobación de hipótesis, componente Sistema de Inyección
+Resultado del análisis: La presión de combustible está fuera del rango normal, el componente se encuentra averiado.
+
+- Comprobación de hipótesis, componente Sistema de Refrigeración
+Resultado del análisis: La presión del sistema de refrigeración es adecuada.
+
+
+HIPÓTESIS FINAL:
+
+Los componentes afectados son la batería y el sistema de inyección.
+Esta es la hipótesis final.
