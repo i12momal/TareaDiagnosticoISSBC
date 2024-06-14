@@ -35,7 +35,7 @@ Resultado del análisis: La batería está descargada o no se está cargando cor
 Resultado del análisis: La resistencia de la bujía es adecuada.
 
 - Comprobación de hipótesis, componente Motor
-Resultado del análisis: Los valores del motor son adecuados.
+Resultado del análisis: Uno o más valores del motor están fuera del rango normal, el componente se encuentra averiado.
 
 - Comprobación de hipótesis, componente Radiador
 Resultado del análisis: La temperatura y presión del radiador son adecuadas.
@@ -44,7 +44,7 @@ Resultado del análisis: La temperatura y presión del radiador son adecuadas.
 Resultado del análisis: La presión de aceite es adecuada.
 
 - Comprobación de hipótesis, componente Sistema de Inyección
-Resultado del análisis: La presión de combustible está fuera del rango normal, el componente se encuentra averiado.
+Resultado del análisis: La presión de combustible es adecuada.
 
 - Comprobación de hipótesis, componente Sistema de Refrigeración
 Resultado del análisis: La presión del sistema de refrigeración es adecuada.
@@ -52,5 +52,5 @@ Resultado del análisis: La presión del sistema de refrigeración es adecuada.
 
 HIPÓTESIS FINAL:
 
-Los componentes afectados son la batería y el sistema de inyección.
-Esta es la hipótesis final.
+Tanto la bateria como el motor se encuentran afectados.
+Esta es la hipotesis final.

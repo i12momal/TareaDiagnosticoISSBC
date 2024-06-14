@@ -16,12 +16,12 @@ class ControladorDiagnostico:
         self.modelo = modelo
         self.vista = vista
 
-        # Conectar señales y slots
+        # Conecta las señales de los botones de la interfaz gráfica con los métodos correspondientes del controlador
         self.vista.boton_anadir_sintoma.clicked.connect(self.anadir_sintoma)
         self.vista.boton_quitar_sintoma.clicked.connect(self.quitar_sintoma)
         self.vista.boton_diagnostico.clicked.connect(self.realizar_diagnostico)
         self.vista.boton_comprobar_hipotesis.clicked.connect(self.comprobar_hipotesis)
-        self.vista.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas())
+        self.vista.lista_sintomas_disponibles.addItems(self.modelo.obtener_sintomas()) 
         self.vista.accion_nuevo_diagnostico.triggered.connect(self.nuevo_diagnostico)
         self.vista.accion_guardar_diagnostico.triggered.connect(self.guardar_diagnostico)
 
